@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>A quiz about the television show Seinfeld</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <div class = 'header'>
+      <h1>The Quiz About Nothing!</h1>
+    </div>
+    <section class='scoreKeeper endClose'>
+        <ul>
+          <li class='questiontrack' id='questiontrack'>Question: 
+            <span class='questionnumber' id='questionnumber'>0</span>/5</li>
+          <li class='questiontrack'>Score:
+            <span class='score' id='score'>0</span>
+          </li>
+        </ul>
+    </section>
+    <section class='startQuiz box endClose' id='startBox'>
+      <img src='images/102508474-1568659085331preview-1.jpg' alt='The cast of Seinfeld sitting together' class='seinfeldgroupimg'>
+    </section>
+    <section class='questionBox endClose' id='questionBox'>
+    </section>
+    <!-- radios of possible answers -->
+    <section class='answerBox endClose' id='answerBox'>
+    </section>
+    <!-- displays after answer is submitted: right or wrong -->
+    <section class='responseBox endClose' id='responseBox'>
+		<div id="correctAnswer" class="correctAnswer"></div>
+		<div id="wrongAnswer" class="wrongAnswer">
+		</div>
+    </section>
+    <!-- very end, after all answers submitted -->
+    <section class='finalBox' id='finalBox'>
+    </section>
+    <div class='button-class'>
+        <button type='button' class='startButton button' id='startButton'>Start!</button>
+      </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src='script.js'></script>
+  </body>
+</html>
