@@ -83,20 +83,18 @@ function displayQuestion() {
 	  answerHTML += '<div><input type="radio" name="answer" value="'+ i +'" id="a'+i+'"> ';
 	  answerHTML += '<label for="a'+i+'">'+currentQuestion.answers[i]+'</label></div>';
   }
-  answerHTML += '<button class="button" onclick="submitAnswer();">Submit</button>';
+    const submitButtonHTML = '<button class="button" onclick="submitAnswer();">Submit</button>';
   $('#responseBox').hide();
   $('#answerBox').html(answerHTML);
-  $('#questionBox').show();
-  $('#answerBox').show();
+  $('#form').show()
 	
 }
 
 function submitAnswer() {
     event.preventDefault();
-    $('#questionBox').hide();
-    $('#answerBox').hide();
     $('#wrong').hide();
     $('#correct').hide();
+    $('#form').hide()
     $('.responseBox').show();
     let selected = $('input:checked');
     let answer = selected.val();
@@ -161,10 +159,11 @@ function endQuiz() {
 }
 
 function initialHandlers() {
-	$('#startButton').click(handleQuizStartClick);
+$('#startButton').click(handleQuizStartClick);
+$('#form').submit(submitAnswer)
 }
-$('#questionBox').hide()
-$('#answerBox').hide()
+
+$('#form').hide()
 $('#responseBox').hide()
 $('#finalBox').hide()
 $( document ).ready(function() {
