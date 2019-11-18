@@ -34,16 +34,16 @@ const STORE = [
     correctAnswer: 1,
   },
   {
-    question: 'What does Elaine Benes do at her company party that embarrasses her?',
+   question: 'What does Elaine Benes do at her company party that embarrasses her?',
 
-    answers: [
-      'Dances terribly',
-      'Overdresses',
-      'Kisses her boss',
-      'Forgets to flush the toilet'
-    ],
+   answers: [
+     'Dances terribly',
+     'Overdresses',
+     'Kisses her boss',
+     'Forgets to flush the toilet'
+   ],
 
-    correctAnswer: 0,
+   correctAnswer: 0,
   },
   {
     question: 'What is Jerry Seinfeld called for saying a certain dentist was too sensitive after being offended by his dentist jokes?',
@@ -66,8 +66,6 @@ let currentUserAswer = null;
 
 function handleQuizStartClick() {
   $('#startBox').hide();
-  $('#startButton').hide();
-  console.log(questionNumber);
   displayQuestion();
 }
 
@@ -79,8 +77,8 @@ function displayQuestion() {
 	
 	$('#questionBox').html(questionHTML);
   let answerHTML = '';
-  for(i = 0; i<currentQuestion.answers.length; i++) {
-	  answerHTML += '<div><input type="radio" name="answer" value="'+ i +'" id="a'+i+'"> ';
+  for(let i = 0; i<currentQuestion.answers.length; i++) {
+	  answerHTML += '<div><input required type="radio" name="answer" value="'+ i +'" id="a'+i+'"> ';
 	  answerHTML += '<label for="a'+i+'">'+currentQuestion.answers[i]+'</label></div>';
   }
     const submitButtonHTML = '<button class="button" onclick="submitAnswer();">Submit</button>';
@@ -92,10 +90,8 @@ function displayQuestion() {
 
 function submitAnswer() {
     event.preventDefault();
-    $('#wrong').hide();
-    $('#correct').hide();
     $('#form').hide()
-    $('.responseBox').show();
+    $('#responseBox').show();
     let selected = $('input:checked');
     let answer = selected.val();
     let correct = STORE[questionNumber].correctAnswer;
@@ -132,7 +128,7 @@ function wrongAnswer() {
 	let answerText = STORE[questionNumber].answers[answerIndex];
 	$('#wrongAnswer').html(`<h3>Incorrect!</h3>
     <img src="gifs/serenity_now.gif" alt="George Costanza yelling serenity now!" class="serentiyNow">
-      <br><button type="button" class="nextButton button">Next</button>`);
+      <br><button type="button" class="nextButton button" required>Next</button>`);
       nextQuestion();
   $('#correctAnswer').hide();
   $('#wrongAnswer').show();
@@ -141,31 +137,46 @@ function wrongAnswer() {
 function nextQuestion() {
   $('.nextButton').on('click', function (event) {
 	  questionNumber++;
-	  if(questionNumber <5) {
-	  displayQuestion();
-    updateStats();
-      }	else {
-		  endQuiz();
+	  if(questionNumber <STORE.length) {
+	    displayQuestion();
+      updateStats();
+        }	else {
+		    endQuiz();
 	  }
   });
 }
 
 function endQuiz() {
 	let finalBoxHTML = '<h3>You scored '
-	+ '<span class="finalScore">'+score+'</span> out of 5</h3>'
-	$('.endClose').hide();
+	+ '<span class="finalScore">'+ score +'</span> out of 5</h3><br><p><button type="button" class="restartQuiz button" required>Restart</button>'
+	$('#responseBox').hide();
 	$('#finalBox').html(finalBoxHTML);
 	$('#finalBox').show();
 }
 
-function initialHandlers() {
-$('#startButton').click(handleQuizStartClick);
-$('#form').submit(submitAnswer)
+function handleRestartQuiz() {
+
+  $('body').on('click', '.restartQuiz' ,function (event) {
+    score = 0;
+    questionNumber = 0;
+    $('#questionBox').show()
+    $('#responseBox').hide()
+    $('#finalBox').hide()
+    updateStats()
+    displayQuestion()
+  })
 }
 
-$('#form').hide()
-$('#responseBox').hide()
-$('#finalBox').hide()
+function initialHandlers() {
+  $('#startButton').click(handleQuizStartClick);
+  $('#form').submit(submitAnswer)
+  $('#numquestion').html(STORE.length)
+  handleRestartQuiz()
+}
+
 $( document ).ready(function() {
+  $('#form').hide()
+  $('#responseBox').hide()
+  $('#finalBox').hide()
     initialHandlers();
 });
